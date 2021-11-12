@@ -52,7 +52,7 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
   Future<List<Plant>> Function(int) get _fetch => (int currentListSize) async {
         final int page = (currentListSize / Consts.plantListPageSize).floor();
 
-        final result = await sl<GetAllPlantsUsecase>()(page);
+        final result = await sl<GetPlantsPageUsecase>()(page);
 
         // throwing exceptions triggers onError in PaginationView
         return result.fold(

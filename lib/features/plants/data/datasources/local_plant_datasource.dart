@@ -8,5 +8,5 @@ abstract class LocalPlantDatasource {
 
   // pages start from 0
   @Query('SELECT * FROM plant ORDER BY id LIMIT :size OFFSET :page*:size')
-  Future<List<PlantEntity>> getAllPlants(int page, int size);
+  Future<List<PlantEntity>> getPlantsPage(int page, int size);
 }

@@ -14,11 +14,11 @@ class LocalPlantRepositoryImpl extends LocalPlantRepository {
   final LocalPlantDatasource datasource;
 
   @override
-  FutureFailable<List<PlantEntity>> getAllPlants(int page) async {
+  FutureFailable<List<PlantEntity>> getPlantsPage(int page) async {
     // if we uncomment Future.delayed we will see that pagination works fine
     // await Future.delayed(const Duration(seconds: 2));
     return RepositoryRequestHandler<List<PlantEntity>>()(
-      request: () => datasource.getAllPlants(page, Consts.plantListPageSize),
+      request: () => datasource.getPlantsPage(page, Consts.plantListPageSize),
       defaultFailure: GetPlantsFailure(),
     );
   }

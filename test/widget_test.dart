@@ -5,26 +5,39 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:garden/main.dart';
+import 'package:garden/core/database/app_database.dart';
+import 'package:garden/core/helper/consts.dart';
+import 'package:garden/features/plants/data/datasources/local_plant_datasource.dart';
+import 'package:garden/features/plants/data/models/plant_entity.dart';
+import 'package:garden/features/plants/domain/entities/plant.dart';
+import 'package:garden/features/plants/domain/entities/plant_type_enum.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  group('database tests', () {
+    late AppDatabase database;
+    late LocalPlantDatasource datasource;
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    setUp(() async {
+      database = await $FloorAppDatabase.inMemoryDatabaseBuilder().build();
+      datasource = database.localPlantDatasource;
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    tearDown(() async {
+      await database.close();
+    });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('insert plant', () async {
+      final plant = Plant(
+        name: 'Cactus',
+        type: PlantTypeEnum.ferns,
+        plantingDate: DateTime.now(),
+      );
+      final entity = PlantEntity.fromPlant(plant);
+      await datasource.insertPlant(entity);
+      final actual = await datasource.getPlantsPage(0, Consts.plantListPageSize);
+
+      expect(actual, hasLength(1));
+    });
   });
 }
