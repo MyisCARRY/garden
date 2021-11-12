@@ -1,11 +1,4 @@
 {
-  "alpines": "alpines",
-  "aquatic": "aquatic",
-  "bulbs": "bulbs",
-  "succulents": "succulents",
-  "carnivorous": "carnivorous",
-  "climbers": "climbers",
-  "ferns": "ferns",
-  "grasses": "grasses",
-  "threes": "threes"
+  "insertPlantFailure": "There was problem with saving plant",
+  "getPlantsFailure": "There was problem with loading plants"
 }

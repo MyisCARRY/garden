@@ -20,6 +20,8 @@ dependencies:
   flutter_svg: 0.23.0+1
   any_animated_button: 0.0.2
   cupertino_icons: 1.0.4
+  floor: 1.2.0
+  enum_to_string: 2.0.1
   flutter_localizations:
     sdk: flutter
 
@@ -29,6 +31,7 @@ dev_dependencies:
   flutter_lints: 1.0.4
   build_runner:
   freezed: 0.15.1+1
+  floor_generator: 1.2.0
 
 flutter:
   uses-material-design: true
