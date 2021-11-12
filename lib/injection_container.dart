@@ -26,10 +26,12 @@ abstract class Injector {
     ];
     final callback = Callback(
       onCreate: (database, version) {
-        _types.map((type) => database.insert(
-              FloorTables.plantType,
-              {'name': type},
-            ));
+        for (final type in _types) {
+          database.insert(
+            FloorTables.plantType,
+            {'name': type},
+          );
+        }
       },
     );
     final database = await $FloorAppDatabase.databaseBuilder('app_database.db').addCallback(callback).build();
