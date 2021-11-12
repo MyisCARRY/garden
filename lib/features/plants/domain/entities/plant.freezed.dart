@@ -19,7 +19,7 @@ class _$PlantTearOff {
 
   _Plant call(
       {required String name,
-      required PlantTypeEnum type,
+      required String type,
       required DateTime plantingDate}) {
     return _Plant(
       name: name,
@@ -35,7 +35,7 @@ const $Plant = _$PlantTearOff();
 /// @nodoc
 mixin _$Plant {
   String get name => throw _privateConstructorUsedError;
-  PlantTypeEnum get type => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
   DateTime get plantingDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -46,7 +46,7 @@ mixin _$Plant {
 abstract class $PlantCopyWith<$Res> {
   factory $PlantCopyWith(Plant value, $Res Function(Plant) then) =
       _$PlantCopyWithImpl<$Res>;
-  $Res call({String name, PlantTypeEnum type, DateTime plantingDate});
+  $Res call({String name, String type, DateTime plantingDate});
 }
 
 /// @nodoc
@@ -71,7 +71,7 @@ class _$PlantCopyWithImpl<$Res> implements $PlantCopyWith<$Res> {
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as PlantTypeEnum,
+              as String,
       plantingDate: plantingDate == freezed
           ? _value.plantingDate
           : plantingDate // ignore: cast_nullable_to_non_nullable
@@ -85,7 +85,7 @@ abstract class _$PlantCopyWith<$Res> implements $PlantCopyWith<$Res> {
   factory _$PlantCopyWith(_Plant value, $Res Function(_Plant) then) =
       __$PlantCopyWithImpl<$Res>;
   @override
-  $Res call({String name, PlantTypeEnum type, DateTime plantingDate});
+  $Res call({String name, String type, DateTime plantingDate});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$PlantCopyWithImpl<$Res> extends _$PlantCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as PlantTypeEnum,
+              as String,
       plantingDate: plantingDate == freezed
           ? _value.plantingDate
           : plantingDate // ignore: cast_nullable_to_non_nullable
@@ -130,7 +130,7 @@ class _$_Plant extends _Plant {
   @override
   final String name;
   @override
-  final PlantTypeEnum type;
+  final String type;
   @override
   final DateTime plantingDate;
 
@@ -162,14 +162,14 @@ class _$_Plant extends _Plant {
 abstract class _Plant extends Plant {
   const factory _Plant(
       {required String name,
-      required PlantTypeEnum type,
+      required String type,
       required DateTime plantingDate}) = _$_Plant;
   const _Plant._() : super._();
 
   @override
   String get name;
   @override
-  PlantTypeEnum get type;
+  String get type;
   @override
   DateTime get plantingDate;
   @override

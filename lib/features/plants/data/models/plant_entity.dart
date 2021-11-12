@@ -1,8 +1,8 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:floor/floor.dart';
+import 'package:garden/core/helper/floor_tables.dart';
 import 'package:garden/features/plants/domain/entities/plant.dart';
 
-@Entity(tableName: 'plant')
+@Entity(tableName: FloorTables.plant)
 class PlantEntity {
   PlantEntity({
     required this.name,
@@ -14,7 +14,7 @@ class PlantEntity {
   factory PlantEntity.fromPlant(Plant plant) {
     return PlantEntity(
       name: plant.name,
-      type: EnumToString.convertToString(plant.type),
+      type: plant.type,
       plantingDate: plant.plantingDate.toIso8601String(),
     );
   }
