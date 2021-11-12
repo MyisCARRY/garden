@@ -5,6 +5,8 @@ import 'package:garden/features/plants/domain/repositories/local_plant_repositor
 import 'package:garden/features/plants/domain/usecases/get_all_plants_usecase.dart';
 import 'package:garden/features/plants/domain/usecases/get_plant_types_usecase.dart';
 import 'package:garden/features/plants/domain/usecases/insert_plant_usecase.dart';
+import 'package:garden/features/plants/presentation/blocs/add_plant_bloc/add_plant_bloc.dart';
+import 'package:garden/features/plants/presentation/blocs/plant_form_bloc/plant_form_bloc.dart';
 import 'package:garden/features/plants/presentation/blocs/plant_types_bloc/plant_types_bloc.dart';
 import 'package:garden/injection_container.dart';
 
@@ -14,7 +16,9 @@ mixin PlantInjector on Injector {
     await super.init();
 
     // blocs
-    sl.registerFactory<PlantTypesBloc>(() => PlantTypesBloc(getPlantTypesUsecase: sl()));
+    sl.registerFactory(() => PlantTypesBloc(getPlantTypesUsecase: sl()));
+    sl.registerFactory(() => PlantFormBloc());
+    sl.registerFactory(() => AddPlantBloc(insertPlantUsecase: sl()));
 
     // use cases
     sl.registerLazySingleton(() => GetPlantsPageUsecase(repository: sl()));

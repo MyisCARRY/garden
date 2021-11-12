@@ -19,6 +19,14 @@ class Plant with _$Plant {
     );
   }
 
+  factory Plant.empty() {
+    return Plant(
+      name: '',
+      type: '',
+      plantingDate: DateTime.now(),
+    );
+  }
+
   const Plant._(); // Added constructor
 
   String get emblem => name.isEmpty ? '' : name[0] + name[name.length - 1];
