@@ -6,6 +6,7 @@ abstract class LocalPlantDatasource {
   @insert
   Future<void> insertPlant(PlantEntity plant);
 
-  @Query('SELECT * FROM plant')
-  Future<List<PlantEntity>> getAllPlants();
+  // pages start from 0
+  @Query('SELECT * FROM plant ORDER BY id LIMIT :size OFFSET :page*:size')
+  Future<List<PlantEntity>> getAllPlants(int page, int size);
 }

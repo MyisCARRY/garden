@@ -1,5 +1,6 @@
 import 'package:garden/core/error/failures.dart';
 import 'package:garden/core/error/repository_request_handler.dart';
+import 'package:garden/core/helper/consts.dart';
 import 'package:garden/core/helper/type_aliases.dart';
 import 'package:garden/features/plants/data/datasources/local_plant_datasource.dart';
 import 'package:garden/features/plants/data/models/plant_entity.dart';
@@ -13,9 +14,11 @@ class LocalPlantRepositoryImpl extends LocalPlantRepository {
   final LocalPlantDatasource datasource;
 
   @override
-  FutureFailable<List<PlantEntity>> getAllPlants() async {
+  FutureFailable<List<PlantEntity>> getAllPlants(int page) async {
+    // if we uncomment Future.delayed we will see that pagination works fine
+    // await Future.delayed(const Duration(seconds: 2));
     return RepositoryRequestHandler<List<PlantEntity>>()(
-      request: datasource.getAllPlants,
+      request: () => datasource.getAllPlants(page, Consts.plantListPageSize),
       defaultFailure: GetPlantsFailure(),
     );
   }
