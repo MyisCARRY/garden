@@ -29,3 +29,19 @@ class GetPlantsFailure extends LocalPlantFailure {
   @override
   String get _errorMessage => S.current.getPlantsFailure;
 }
+
+class GetPlantTypesFailure extends LocalPlantFailure {
+  @override
+  int get _errorCode => 102;
+
+  @override
+  String get _errorMessage => S.current.getPlantTypesFailure;
+}
+
+class InsertPlantTypesFailure extends LocalPlantFailure {
+  @override
+  int get _errorCode => 103;
+
+  @override
+  String get _errorMessage => S.current.insertPlantTypesFailure;
+}

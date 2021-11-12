@@ -11,7 +11,6 @@ import 'package:garden/core/helper/consts.dart';
 import 'package:garden/features/plants/data/datasources/local_plant_datasource.dart';
 import 'package:garden/features/plants/data/models/plant_entity.dart';
 import 'package:garden/features/plants/domain/entities/plant.dart';
-import 'package:garden/features/plants/domain/entities/plant_type_enum.dart';
 
 void main() {
   group('database tests', () {
@@ -30,7 +29,7 @@ void main() {
     test('insert plant', () async {
       final plant = Plant(
         name: 'Cactus',
-        type: PlantTypeEnum.ferns,
+        type: 'ferns',
         plantingDate: DateTime.now(),
       );
       final entity = PlantEntity.fromPlant(plant);
