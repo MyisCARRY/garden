@@ -22,6 +22,7 @@ dependencies:
   cupertino_icons: 1.0.4
   floor: 1.2.0
   enum_to_string: 2.0.1
+  pagination_view: 2.0.0
   flutter_localizations:
     sdk: flutter
 

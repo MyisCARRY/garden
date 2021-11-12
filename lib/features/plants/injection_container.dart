@@ -14,7 +14,7 @@ mixin PlantInjector on Injector {
     // blocs
 
     // use cases
-    sl.registerLazySingleton(() => GetAllPlantsUsecase(repository: sl()));
+    sl.registerLazySingleton(() => GetPlantsPageUsecase(repository: sl()));
     sl.registerLazySingleton(() => InsertPlantUsecase(repository: sl()));
 
     // repositories

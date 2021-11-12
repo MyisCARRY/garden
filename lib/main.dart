@@ -1,15 +1,18 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:fimber/fimber.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:garden/core/navigator/navigator.dart';
+import 'package:garden/features/plants/presentation/screens/plants_list_screen.dart';
 import 'package:garden/generated/l10n.dart';
 import 'package:garden/injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InjectionContainer().init();
+  Fimber.plantTree(DebugTree());
 
   runApp(MyApp());
 }
@@ -41,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       navigatorObservers: [BotToastNavigatorObserver()],
       builder: BotToastInit(),
-      home: const SizedBox(),
+      home: const PlantsListScreen(),
     );
   }
 }
