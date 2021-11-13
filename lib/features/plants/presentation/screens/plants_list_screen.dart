@@ -5,6 +5,7 @@ import 'package:garden/core/presentation/widgets/appbars/title_app_bar.dart';
 import 'package:garden/core/presentation/widgets/buttons/filled_button.dart';
 import 'package:garden/core/presentation/widgets/custom_empty_screen.dart';
 import 'package:garden/core/presentation/widgets/custom_error_widget.dart';
+import 'package:garden/core/presentation/widgets/notifications.dart';
 import 'package:garden/core/style/paddings.dart';
 import 'package:garden/features/plants/domain/entities/plant.dart';
 import 'package:garden/features/plants/domain/usecases/get_all_plants_usecase.dart';
@@ -56,7 +57,10 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
                   padding: Paddings.horizontal24.overrideZeros(Paddings.vertical8),
                   child: PlantWidget(
                     plant: plant,
-                    onTap: () => PlantFormScreen(plant: plant).addScreen(context),
+                    onTap: () => PlantFormScreen(
+                      plant: plant,
+                      onSave: () => onSuccessSave(S.current.successPlantEdit),
+                    ).addScreen(context),
                   ),
                 ),
                 pageFetch: _fetch,
@@ -69,7 +73,9 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
               padding: Paddings.horizontal24,
               child: FilledButton(
                 text: 'Add plant to garden',
-                onTap: () => const PlantFormScreen().addScreen(context),
+                onTap: () => PlantFormScreen(
+                  onSave: () => onSuccessSave(S.current.successPlantAdd),
+                ).addScreen(context),
               ),
             ),
             const SizedBox(height: 16.0),
@@ -90,4 +96,10 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
           (data) => data,
         );
       };
+
+  void onSuccessSave(String text) {
+    Navigator.of(context).maybePop();
+    Notifications.neutral(description: text);
+    _paginationCubit.refreshPaginatedList();
+  }
 }

@@ -6,5 +6,15 @@
   "plantedOn": "Planted on",
   "plantType": "Plant type",
   "garden": "garden",
-  "emptyPlants": "You have not add any plant yet"
+  "emptyPlants": "You have not add any plant yet",
+  "thisFieldIsNecessary": "This field is necessary",
+  "minLength": "{field} should have at least {num} characters",
+  "maxLength": "{field} should have at most {num} characters",
+  "name": "name",
+  "editPlant": "edit plant",
+  "addPlant": "add plant",
+  "plantingDate": "planting date",
+  "save": "save",
+  "successPlantAdd": "Successfully added plant",
+  "successPlantEdit": "Successfully edited plant"
 }

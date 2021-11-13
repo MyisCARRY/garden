@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:garden/core/helper/extensions.dart';
 import 'package:garden/core/helper/images.dart';
 import 'package:garden/core/helper/widget_ext.dart';
+import 'package:garden/core/style/border_radiuses.dart';
 import 'package:garden/core/style/colors.dart';
 import 'package:garden/core/style/paddings.dart';
 import 'package:garden/core/style/text_styles.dart';
@@ -13,7 +14,6 @@ class BasicOutlinedTextfield extends StatefulWidget {
   const BasicOutlinedTextfield({
     required this.controller,
     required this.hint,
-    required this.label,
     this.inputFormatters,
     this.keyboardType,
     this.prefix,
@@ -29,7 +29,6 @@ class BasicOutlinedTextfield extends StatefulWidget {
 
   final TextEditingController controller;
   final String hint;
-  final String label;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final Widget? prefix;
@@ -59,24 +58,26 @@ class _BasicOutlinedTextfieldState extends State<BasicOutlinedTextfield> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        TextFormField(
-          controller: widget.controller,
-          inputFormatters: widget.inputFormatters,
-          keyboardType: widget.keyboardType,
-          textInputAction: widget.textInputAction,
-          autofillHints: widget.autofillHints,
-          validator: widget.validator,
-          onChanged: widget.onChanged,
-          autocorrect: widget.autocorrect,
-          obscureText: _obscure,
-          style: roboto.s16.blackColor,
-          decoration: InputDecoration(
-            hintText: widget.hint,
-            labelText: widget.label,
-            border: const OutlineInputBorder(),
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            prefix: widget.prefix,
-            suffix: widget.showObscureSwitch ? const SizedBox(width: 40.0) : null,
+        Container(
+          decoration: const BoxDecoration(color: CustomColors.veryLightGreen, borderRadius: BorderRadiuses.all16),
+          child: TextFormField(
+            controller: widget.controller,
+            inputFormatters: widget.inputFormatters,
+            keyboardType: widget.keyboardType,
+            textInputAction: widget.textInputAction,
+            autofillHints: widget.autofillHints,
+            validator: widget.validator,
+            onChanged: widget.onChanged,
+            autocorrect: widget.autocorrect,
+            obscureText: _obscure,
+            style: roboto.s16.w500.blackColor,
+            decoration: InputDecoration(
+              hintText: widget.hint,
+              border: InputBorder.none,
+              prefix: widget.prefix,
+              suffix: widget.showObscureSwitch ? const SizedBox(width: 40.0) : null,
+              contentPadding: Paddings.vertical14.overrideZeros(Paddings.horizontal20),
+            ),
           ),
         ),
         if (widget.showObscureSwitch)
