@@ -89,7 +89,7 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
               top: offset.dy,
               child: Material(
                 color: CustomColors.white,
-                borderRadius: BorderRadiuses.all18,
+                borderRadius: BorderRadiuses.all16,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: List.generate(

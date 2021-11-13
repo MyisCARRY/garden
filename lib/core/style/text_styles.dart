@@ -115,6 +115,12 @@ class CustomTextStyle extends TextStyle {
 
   CustomTextStyle get whiteColor => copyWith(color: CustomColors.white);
 
+  CustomTextStyle get lightGreenColor => copyWith(color: CustomColors.lightGreen);
+
+  CustomTextStyle get greenColor => copyWith(color: CustomColors.green);
+
+  CustomTextStyle get darkGreenColor => copyWith(color: CustomColors.darkGreen);
+
   @override
   CustomTextStyle copyWith({
     Paint? background,
