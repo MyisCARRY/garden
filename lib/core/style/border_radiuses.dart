@@ -6,4 +6,12 @@ abstract class BorderRadiuses {
 
   // top
   // static const BorderRadius top24 = BorderRadius.vertical(top: Radius.circular(24.0));
+
+  // other
+  static const BorderRadius diagonal10And40 = BorderRadius.only(
+    topLeft: Radius.circular(10.0),
+    bottomRight: Radius.circular(10.0),
+    topRight: Radius.circular(40.0),
+    bottomLeft: Radius.circular(40.0),
+  );
 }

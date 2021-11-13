@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:garden/core/helper/consts.dart';
 import 'package:garden/core/helper/extensions.dart';
 import 'package:garden/core/presentation/widgets/appbars/title_app_bar.dart';
+import 'package:garden/core/presentation/widgets/buttons/filled_button.dart';
 import 'package:garden/core/presentation/widgets/custom_empty_screen.dart';
 import 'package:garden/core/presentation/widgets/custom_error_widget.dart';
 import 'package:garden/core/style/paddings.dart';
@@ -46,19 +47,33 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
         title: S.current.garden.capitalize,
         showLeading: false,
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () => const PlantFormScreen().addScreen(context)),
       body: SafeArea(
-        child: PaginationView<Plant>(
-          itemBuilder: (BuildContext context, Plant plant, int i) => Padding(
-            padding: Paddings.horizontal24.overrideZeros(Paddings.vertical8),
-            child: PlantWidget(
-              plant: plant,
-              onTap: () => PlantFormScreen(plant: plant).addScreen(context),
+        child: Column(
+          children: [
+            Expanded(
+              child: PaginationView<Plant>(
+                itemBuilder: (BuildContext context, Plant plant, int i) => Padding(
+                  padding: Paddings.horizontal24.overrideZeros(Paddings.vertical8),
+                  child: PlantWidget(
+                    plant: plant,
+                    onTap: () => PlantFormScreen(plant: plant).addScreen(context),
+                  ),
+                ),
+                pageFetch: _fetch,
+                onEmpty: const CustomEmptyWidget(),
+                onError: (error) => CustomErrorWidget(onRefresh: _paginationCubit.refreshPaginatedList),
+              ),
             ),
-          ),
-          pageFetch: _fetch,
-          onEmpty: const CustomEmptyWidget(),
-          onError: (error) => CustomErrorWidget(onRefresh: _paginationCubit.refreshPaginatedList),
+            const SizedBox(height: 12.0),
+            Padding(
+              padding: Paddings.horizontal24,
+              child: FilledButton(
+                text: 'Add plant to garden',
+                onTap: () => const PlantFormScreen().addScreen(context),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+          ],
         ),
       ),
     );
