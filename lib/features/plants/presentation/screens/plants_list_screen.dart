@@ -39,9 +39,12 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
       floatingActionButton: FloatingActionButton(onPressed: () => const PlantFormScreen().addScreen(context)),
       body: SafeArea(
         child: PaginationView<Plant>(
-          itemBuilder: (BuildContext context, Plant plant, int i) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40.0),
-            child: Text("$i: $plant"),
+          itemBuilder: (BuildContext context, Plant plant, int i) => InkWell(
+            onTap: () => PlantFormScreen(plant: plant).addScreen(context),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              child: Text("$i: ${plant.name}"),
+            ),
           ),
           pageFetch: _fetch,
           onEmpty: const CustomEmptyWidget(),

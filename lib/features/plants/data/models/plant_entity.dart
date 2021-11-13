@@ -13,6 +13,7 @@ class PlantEntity {
 
   factory PlantEntity.fromPlant(Plant plant) {
     return PlantEntity(
+      id: plant.id,
       name: plant.name,
       type: plant.type,
       plantingDate: plant.plantingDate.toIso8601String(),

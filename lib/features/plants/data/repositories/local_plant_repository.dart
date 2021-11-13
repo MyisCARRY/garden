@@ -39,4 +39,12 @@ class LocalPlantRepositoryImpl extends LocalPlantRepository {
       defaultFailure: GetPlantTypesFailure(),
     );
   }
+
+  @override
+  FutureFailable<void> updatePlant(PlantEntity plant) {
+    return RepositoryRequestHandler<void>()(
+      request: () => datasource.updatePlant(plant),
+      defaultFailure: UpdatePlantFailure(),
+    );
+  }
 }

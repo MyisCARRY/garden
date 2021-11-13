@@ -20,11 +20,13 @@ class _$PlantTearOff {
   _Plant call(
       {required String name,
       required String type,
-      required DateTime plantingDate}) {
+      required DateTime plantingDate,
+      int? id}) {
     return _Plant(
       name: name,
       type: type,
       plantingDate: plantingDate,
+      id: id,
     );
   }
 }
@@ -37,6 +39,7 @@ mixin _$Plant {
   String get name => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   DateTime get plantingDate => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlantCopyWith<Plant> get copyWith => throw _privateConstructorUsedError;
@@ -46,7 +49,7 @@ mixin _$Plant {
 abstract class $PlantCopyWith<$Res> {
   factory $PlantCopyWith(Plant value, $Res Function(Plant) then) =
       _$PlantCopyWithImpl<$Res>;
-  $Res call({String name, String type, DateTime plantingDate});
+  $Res call({String name, String type, DateTime plantingDate, int? id});
 }
 
 /// @nodoc
@@ -62,6 +65,7 @@ class _$PlantCopyWithImpl<$Res> implements $PlantCopyWith<$Res> {
     Object? name = freezed,
     Object? type = freezed,
     Object? plantingDate = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -76,6 +80,10 @@ class _$PlantCopyWithImpl<$Res> implements $PlantCopyWith<$Res> {
           ? _value.plantingDate
           : plantingDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -85,7 +93,7 @@ abstract class _$PlantCopyWith<$Res> implements $PlantCopyWith<$Res> {
   factory _$PlantCopyWith(_Plant value, $Res Function(_Plant) then) =
       __$PlantCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String type, DateTime plantingDate});
+  $Res call({String name, String type, DateTime plantingDate, int? id});
 }
 
 /// @nodoc
@@ -102,6 +110,7 @@ class __$PlantCopyWithImpl<$Res> extends _$PlantCopyWithImpl<$Res>
     Object? name = freezed,
     Object? type = freezed,
     Object? plantingDate = freezed,
+    Object? id = freezed,
   }) {
     return _then(_Plant(
       name: name == freezed
@@ -116,6 +125,10 @@ class __$PlantCopyWithImpl<$Res> extends _$PlantCopyWithImpl<$Res>
           ? _value.plantingDate
           : plantingDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -124,7 +137,10 @@ class __$PlantCopyWithImpl<$Res> extends _$PlantCopyWithImpl<$Res>
 
 class _$_Plant extends _Plant {
   const _$_Plant(
-      {required this.name, required this.type, required this.plantingDate})
+      {required this.name,
+      required this.type,
+      required this.plantingDate,
+      this.id})
       : super._();
 
   @override
@@ -133,10 +149,12 @@ class _$_Plant extends _Plant {
   final String type;
   @override
   final DateTime plantingDate;
+  @override
+  final int? id;
 
   @override
   String toString() {
-    return 'Plant(name: $name, type: $type, plantingDate: $plantingDate)';
+    return 'Plant(name: $name, type: $type, plantingDate: $plantingDate, id: $id)';
   }
 
   @override
@@ -147,11 +165,12 @@ class _$_Plant extends _Plant {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.plantingDate, plantingDate) ||
-                other.plantingDate == plantingDate));
+                other.plantingDate == plantingDate) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, type, plantingDate);
+  int get hashCode => Object.hash(runtimeType, name, type, plantingDate, id);
 
   @JsonKey(ignore: true)
   @override
@@ -163,7 +182,8 @@ abstract class _Plant extends Plant {
   const factory _Plant(
       {required String name,
       required String type,
-      required DateTime plantingDate}) = _$_Plant;
+      required DateTime plantingDate,
+      int? id}) = _$_Plant;
   const _Plant._() : super._();
 
   @override
@@ -172,6 +192,8 @@ abstract class _Plant extends Plant {
   String get type;
   @override
   DateTime get plantingDate;
+  @override
+  int? get id;
   @override
   @JsonKey(ignore: true)
   _$PlantCopyWith<_Plant> get copyWith => throw _privateConstructorUsedError;

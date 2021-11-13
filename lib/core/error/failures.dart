@@ -38,10 +38,10 @@ class GetPlantTypesFailure extends LocalPlantFailure {
   String get _errorMessage => S.current.getPlantTypesFailure;
 }
 
-class InsertPlantTypesFailure extends LocalPlantFailure {
+class UpdatePlantFailure extends LocalPlantFailure {
   @override
   int get _errorCode => 103;
 
   @override
-  String get _errorMessage => S.current.insertPlantTypesFailure;
+  String get _errorMessage => S.current.updatePlantFailure;
 }

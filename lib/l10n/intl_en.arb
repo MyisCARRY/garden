@@ -2,5 +2,5 @@
   "insertPlantFailure": "There was problem with saving plant",
   "getPlantsFailure": "There was problem with loading plants",
   "getPlantTypesFailure": "There was problem with loading plant types",
-  "insertPlantTypesFailure": "There was problem with saving plant types"
+  "updatePlantFailure": "There was problem with updating plant"
 }
