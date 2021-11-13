@@ -3,6 +3,8 @@ abstract class SvgIcons {
 
   static const String eye = '$_path/eye.svg';
   static const String backArrow = '$_path/back_arrow.svg';
+  static const String leaf = '$_path/leaf.svg';
+  static const String pot = '$_path/pot.svg';
 }
 
 abstract class PngImages {

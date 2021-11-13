@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 abstract class DateFormats {
   static String fullDate(DateTime date) {
     initializeDateFormatting();
-    final DateFormat format = DateFormat('dd-MM-YYYY');
+    final DateFormat format = DateFormat('dd-MM-yyyy');
     return format.format(date);
   }
 }

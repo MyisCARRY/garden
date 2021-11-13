@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:garden/core/helper/consts.dart';
+import 'package:garden/core/helper/extensions.dart';
+import 'package:garden/core/presentation/widgets/appbars/title_app_bar.dart';
 import 'package:garden/core/presentation/widgets/custom_empty_screen.dart';
 import 'package:garden/core/presentation/widgets/custom_error_widget.dart';
+import 'package:garden/core/style/paddings.dart';
 import 'package:garden/features/plants/domain/entities/plant.dart';
 import 'package:garden/features/plants/domain/usecases/get_all_plants_usecase.dart';
 import 'package:garden/features/plants/presentation/screens/plant_form_screen.dart';
+import 'package:garden/features/plants/presentation/widgets/plant_widget.dart';
+import 'package:garden/generated/l10n.dart';
 import 'package:garden/injection_container.dart';
 import 'package:pagination_view/bloc/pagination_bloc.dart';
 import 'package:pagination_view/pagination_view.dart';
@@ -36,14 +41,19 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: TitleAppBar(
+        context,
+        title: S.current.garden.capitalize,
+        showLeading: false,
+      ),
       floatingActionButton: FloatingActionButton(onPressed: () => const PlantFormScreen().addScreen(context)),
       body: SafeArea(
         child: PaginationView<Plant>(
-          itemBuilder: (BuildContext context, Plant plant, int i) => InkWell(
-            onTap: () => PlantFormScreen(plant: plant).addScreen(context),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40.0),
-              child: Text("$i: ${plant.name}"),
+          itemBuilder: (BuildContext context, Plant plant, int i) => Padding(
+            padding: Paddings.horizontal24.overrideZeros(Paddings.vertical8),
+            child: PlantWidget(
+              plant: plant,
+              onTap: () => PlantFormScreen(plant: plant).addScreen(context),
             ),
           ),
           pageFetch: _fetch,
