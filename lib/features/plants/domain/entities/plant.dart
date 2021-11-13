@@ -9,10 +9,12 @@ class Plant with _$Plant {
     required String name,
     required String type,
     required DateTime plantingDate,
+    int? id,
   }) = _Plant;
 
   factory Plant.fromEntity(PlantEntity entity) {
     return Plant(
+      id: entity.id,
       name: entity.name,
       type: entity.type,
       plantingDate: DateTime.parse(entity.plantingDate),

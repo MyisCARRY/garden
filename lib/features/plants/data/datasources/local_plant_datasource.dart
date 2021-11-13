@@ -13,4 +13,7 @@ abstract class LocalPlantDatasource {
 
   @Query('SELECT * FROM plant_type')
   Future<List<PlantTypeEntity>> getPlantTypes();
+
+  @Update(onConflict: OnConflictStrategy.replace)
+  Future<void> updatePlant(PlantEntity plant);
 }

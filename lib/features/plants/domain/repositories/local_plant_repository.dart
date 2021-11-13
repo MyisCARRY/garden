@@ -8,4 +8,6 @@ abstract class LocalPlantRepository {
   FutureFailable<List<PlantEntity>> getPlantsPage(int page);
 
   FutureFailable<List<PlantTypeEntity>> getPlantTypes();
+
+  FutureFailable<void> updatePlant(PlantEntity plant);
 }

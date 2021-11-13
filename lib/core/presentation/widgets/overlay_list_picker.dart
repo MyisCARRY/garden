@@ -12,6 +12,7 @@ class OverlayListPicker<T> extends StatefulWidget {
     required this.toText,
     required this.child,
     required this.onPicked,
+    this.selected,
     Key? key,
   }) : super(key: key);
 
@@ -19,6 +20,7 @@ class OverlayListPicker<T> extends StatefulWidget {
   final String Function(T) toText;
   final Widget child;
   final void Function(T) onPicked;
+  final T? selected;
 
   @override
   State<StatefulWidget> createState() => _OverlayListPickerState<T>();
@@ -32,6 +34,7 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
   @override
   void initState() {
     _key = GlobalKey();
+    _selected = widget.selected;
 
     super.initState();
   }
@@ -91,7 +94,7 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: List.generate(
                     widget.values.length,
-                        (int i) => Container(
+                    (int i) => Container(
                       decoration: BoxDecoration(
                         color: widget.values[i] == _selected ? CustomColors.black : CustomColors.white,
                         borderRadius: _getOverlayItemBorder(i),
@@ -134,7 +137,7 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
   }
 
   BorderRadius _getOverlayItemBorder(int i) => BorderRadius.vertical(
-    top: Radius.circular(i == 0 ? 18.0 : 0.0),
-    bottom: Radius.circular(i == widget.values.length - 1 ? 18.0 : 0.0),
-  );
+        top: Radius.circular(i == 0 ? 18.0 : 0.0),
+        bottom: Radius.circular(i == widget.values.length - 1 ? 18.0 : 0.0),
+      );
 }

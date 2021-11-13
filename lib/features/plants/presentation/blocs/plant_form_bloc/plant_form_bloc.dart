@@ -4,13 +4,20 @@ import 'package:garden/features/plants/presentation/blocs/plant_form_bloc/plant_
 import 'package:garden/features/plants/presentation/blocs/plant_form_bloc/plant_form_state.dart';
 
 class PlantFormBloc extends Bloc<PlantFormEvent, PlantFormState> {
-  PlantFormBloc() : super(PlantFormState.data(plant: Plant.empty(), isValid: false));
+  PlantFormBloc({this.initialPlant})
+      : super(PlantFormState.data(
+          plant: initialPlant ?? Plant.empty(),
+          isValid: _isValid(initialPlant ?? Plant.empty()),
+        )) {
+    _plant = initialPlant ?? Plant.empty();
+  }
 
-  Plant _plant = Plant.empty();
+  final Plant? initialPlant;
+  late Plant _plant;
 
-  PlantFormState get _data => PlantFormState.data(plant: _plant, isValid: _isValid);
+  PlantFormState get _data => PlantFormState.data(plant: _plant, isValid: _isValid(_plant));
 
-  bool get _isValid => _plant.name.isNotEmpty && _plant.type.isNotEmpty;
+  static bool _isValid(Plant plant) => plant.name.isNotEmpty && plant.type.isNotEmpty;
 
   @override
   Stream<PlantFormState> mapEventToState(PlantFormEvent event) async* {
