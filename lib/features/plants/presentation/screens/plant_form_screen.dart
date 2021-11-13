@@ -79,6 +79,7 @@ class _PlantFormScreenState extends State<PlantFormScreen> {
                 children: [
                   TextFormField(
                     controller: _nameController,
+                    autocorrect: false,
                     onChanged: (value) {
                       _plantFormBloc.add(PlantFormEvent.changeName(value));
                     },
