@@ -41,23 +41,30 @@ class PlantWidget extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(plant.emblem.toUpperCase(), style: roboto.w900.s36.darkGreenColor),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(plant.name, style: roboto.w900.s24.darkGreenColor),
-                    const SizedBox(height: 8.0),
-                    PlantInfoRow(
-                      icon: SvgIcons.leaf,
-                      description: '${S.current.plantType}: ',
-                      value: plant.type,
-                    ),
-                    const SizedBox(height: 6.0),
-                    PlantInfoRow(
-                      icon: SvgIcons.pot,
-                      description: '${S.current.plantedOn}: ',
-                      value: _plantDate,
-                    ),
-                  ],
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        plant.name,
+                        style: roboto.w900.s24.darkGreenColor,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 8.0),
+                      PlantInfoRow(
+                        icon: SvgIcons.leaf,
+                        description: '${S.current.plantType}: ',
+                        value: plant.type,
+                      ),
+                      const SizedBox(height: 6.0),
+                      PlantInfoRow(
+                        icon: SvgIcons.pot,
+                        description: '${S.current.plantedOn}: ',
+                        value: _plantDate,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
