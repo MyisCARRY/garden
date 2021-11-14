@@ -71,6 +71,7 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
 
     if (box != null) {
       final offset = box.localToGlobal(Offset.zero);
+      final size = box.size;
 
       return OverlayEntry(
         builder: (context) => Stack(
@@ -87,6 +88,7 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
             Positioned(
               left: offset.dx,
               top: offset.dy,
+              width: size.width,
               child: Material(
                 color: CustomColors.white,
                 borderRadius: BorderRadiuses.all16,
@@ -96,7 +98,7 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
                     widget.values.length,
                     (int i) => Container(
                       decoration: BoxDecoration(
-                        color: widget.values[i] == _selected ? CustomColors.black : CustomColors.white,
+                        color: widget.values[i] == _selected ? CustomColors.veryLightGreen : CustomColors.white,
                         borderRadius: _getOverlayItemBorder(i),
                       ),
                       child: Material(
