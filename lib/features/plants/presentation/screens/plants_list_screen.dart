@@ -86,7 +86,9 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
                 ),
                 showRetry: false,
                 errorBuilder: (_, __) => CustomErrorWidget(onRefresh: _pagewiseController.retry),
-                noItemsFoundBuilder: (_) => CustomEmptyWidget(text: S.current.emptySearchPlants),
+                noItemsFoundBuilder: (_) => CustomEmptyWidget(
+                  text: _searchController.text.isEmpty ? S.current.emptyPlants : S.current.emptySearchPlants,
+                ),
                 loadingBuilder: (_) => const CustomLoadingWidget(),
                 pageLoadController: _pagewiseController,
               ),
