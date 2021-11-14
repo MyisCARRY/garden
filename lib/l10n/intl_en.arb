@@ -17,5 +17,6 @@
   "save": "save",
   "successPlantAdd": "Successfully added plant",
   "successPlantEdit": "Successfully edited plant",
-  "addPlantToGarden": "add plant to garden"
+  "addPlantToGarden": "add plant to garden",
+  "search": "search"
 }
