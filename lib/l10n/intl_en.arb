@@ -16,5 +16,6 @@
   "plantingDate": "planting date",
   "save": "save",
   "successPlantAdd": "Successfully added plant",
-  "successPlantEdit": "Successfully edited plant"
+  "successPlantEdit": "Successfully edited plant",
+  "addPlantToGarden": "add plant to garden"
 }
