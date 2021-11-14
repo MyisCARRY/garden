@@ -11,7 +11,7 @@ abstract class PlantNameValidator {
       return S.current.minLength(S.current.name, Consts.minPlantNameLength).capitalize;
     }
     if (Consts.maxPlantNameLength < value.length) {
-      return S.current.minLength(S.current.name, Consts.maxPlantNameLength).capitalize;
+      return S.current.maxLength(S.current.name, Consts.maxPlantNameLength).capitalize;
     }
     return null;
   }

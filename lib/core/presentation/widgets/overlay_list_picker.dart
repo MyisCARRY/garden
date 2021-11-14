@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:garden/core/helper/extensions.dart';
 import 'package:garden/core/helper/widget_ext.dart';
@@ -72,6 +74,11 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
     if (box != null) {
       final offset = box.localToGlobal(Offset.zero);
       final size = box.size;
+      final screenSize = MediaQuery.of(context).size;
+      final viewInsets = EdgeInsets.fromWindowPadding(
+        WidgetsBinding.instance?.window.viewInsets ?? WindowPadding.zero,
+        WidgetsBinding.instance?.window.devicePixelRatio ?? 0,
+      );
 
       return OverlayEntry(
         builder: (context) => Stack(
@@ -89,43 +96,49 @@ class _OverlayListPickerState<T> extends State<OverlayListPicker<T>> {
               left: offset.dx,
               top: offset.dy,
               width: size.width,
+              height: screenSize.height - offset.dy - 24.0 - viewInsets.bottom,
               child: Material(
                 color: CustomColors.white,
                 borderRadius: BorderRadiuses.all16,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                    widget.values.length,
-                    (int i) => Container(
-                      decoration: BoxDecoration(
-                        color: widget.values[i] == _selected ? CustomColors.veryLightGreen : CustomColors.white,
-                        borderRadius: _getOverlayItemBorder(i),
-                      ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              _selected = widget.values[i];
-                              widget.onPicked(widget.values[i]);
-                              overlayEntry?.remove();
-                            });
-                          },
-                          child: Padding(
-                            padding: Paddings.horizontal16.overrideZeros(EdgeInsets.only(
-                              top: i == 0 ? 20.0 : 16.0,
-                              bottom: i == widget.values.length - 1 ? 20.0 : 16.0,
-                            )),
-                            child: Row(
-                              children: [
-                                Text(
-                                  widget.toText(widget.values[i]),
-                                  style: roboto.s18.w500,
-                                ),
-                              ],
-                            ),
+                child: ClipRRect(
+                  borderRadius: BorderRadiuses.all16,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(
+                        widget.values.length,
+                        (int i) => Container(
+                          decoration: BoxDecoration(
+                            color: widget.values[i] == _selected ? CustomColors.veryLightGreen : CustomColors.white,
+                            borderRadius: _getOverlayItemBorder(i),
                           ),
-                        ).noSplash(),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _selected = widget.values[i];
+                                  widget.onPicked(widget.values[i]);
+                                  overlayEntry?.remove();
+                                });
+                              },
+                              child: Padding(
+                                padding: Paddings.horizontal16.overrideZeros(EdgeInsets.only(
+                                  top: i == 0 ? 20.0 : 16.0,
+                                  bottom: i == widget.values.length - 1 ? 20.0 : 16.0,
+                                )),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      widget.toText(widget.values[i]),
+                                      style: roboto.s18.w500,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ).noSplash(),
+                          ),
+                        ),
                       ),
                     ),
                   ),

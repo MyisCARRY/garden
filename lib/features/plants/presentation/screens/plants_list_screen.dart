@@ -80,13 +80,13 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
                     plant: plant,
                     onTap: () => PlantFormScreen(
                       plant: plant,
-                      onSave: () => onSuccessSave(S.current.successPlantEdit),
+                      onSave: (name) => onSuccessSave(S.current.successPlantEdit(name)),
                     ).addScreen(context),
                   ),
                 ),
                 showRetry: false,
                 errorBuilder: (_, __) => CustomErrorWidget(onRefresh: _pagewiseController.retry),
-                noItemsFoundBuilder: (_) => const CustomEmptyWidget(),
+                noItemsFoundBuilder: (_) => CustomEmptyWidget(text: S.current.emptySearchPlants),
                 loadingBuilder: (_) => const CustomLoadingWidget(),
                 pageLoadController: _pagewiseController,
               ),
@@ -97,7 +97,7 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
               child: FilledButton(
                 text: S.current.addPlantToGarden.capitalize,
                 onTap: () => PlantFormScreen(
-                  onSave: () => onSuccessSave(S.current.successPlantAdd),
+                  onSave: (name) => onSuccessSave(S.current.successPlantAdd(name)),
                 ).addScreen(context),
               ),
             ),

@@ -59,25 +59,27 @@ class _BasicOutlinedTextfieldState extends State<BasicOutlinedTextfield> {
     return Stack(
       children: [
         Container(
+          width: double.infinity,
+          height: 46.0,
           decoration: const BoxDecoration(color: CustomColors.veryLightGreen, borderRadius: BorderRadiuses.all16),
-          child: TextFormField(
-            controller: widget.controller,
-            inputFormatters: widget.inputFormatters,
-            keyboardType: widget.keyboardType,
-            textInputAction: widget.textInputAction,
-            autofillHints: widget.autofillHints,
-            validator: widget.validator,
-            onChanged: widget.onChanged,
-            autocorrect: widget.autocorrect,
-            obscureText: _obscure,
-            style: roboto.s16.w500.blackColor,
-            decoration: InputDecoration(
-              hintText: widget.hint,
-              border: InputBorder.none,
-              prefix: widget.prefix,
-              suffix: widget.showObscureSwitch ? const SizedBox(width: 40.0) : null,
-              contentPadding: Paddings.vertical14.overrideZeros(Paddings.horizontal20),
-            ),
+        ),
+        TextFormField(
+          controller: widget.controller,
+          inputFormatters: widget.inputFormatters,
+          keyboardType: widget.keyboardType,
+          textInputAction: widget.textInputAction,
+          autofillHints: widget.autofillHints,
+          validator: widget.validator,
+          onChanged: widget.onChanged,
+          autocorrect: widget.autocorrect,
+          obscureText: _obscure,
+          style: roboto.s16.w500.blackColor,
+          decoration: InputDecoration(
+            hintText: widget.hint,
+            border: InputBorder.none,
+            prefix: widget.prefix,
+            suffix: widget.showObscureSwitch ? const SizedBox(width: 40.0) : null,
+            contentPadding: Paddings.vertical14.overrideZeros(Paddings.horizontal20),
           ),
         ),
         if (widget.showObscureSwitch)
