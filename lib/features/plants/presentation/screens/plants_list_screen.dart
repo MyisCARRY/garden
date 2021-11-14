@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:garden/core/helper/consts.dart';
@@ -8,8 +10,10 @@ import 'package:garden/core/presentation/widgets/custom_empty_screen.dart';
 import 'package:garden/core/presentation/widgets/custom_error_widget.dart';
 import 'package:garden/core/presentation/widgets/custom_loading_widget.dart';
 import 'package:garden/core/presentation/widgets/notifications.dart';
+import 'package:garden/core/presentation/widgets/textfields/search_textfield.dart';
 import 'package:garden/core/style/paddings.dart';
 import 'package:garden/features/plants/domain/entities/plant.dart';
+import 'package:garden/features/plants/domain/entities/search_param.dart';
 import 'package:garden/features/plants/domain/usecases/get_all_plants_usecase.dart';
 import 'package:garden/features/plants/presentation/screens/plant_form_screen.dart';
 import 'package:garden/features/plants/presentation/widgets/plant_widget.dart';
@@ -25,6 +29,8 @@ class PlantsListScreen extends StatefulWidget {
 
 class _PlantsListScreenState extends State<PlantsListScreen> {
   late final PagewiseLoadController<Plant> _pagewiseController;
+  late final TextEditingController _searchController;
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -32,6 +38,7 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
       pageFuture: _fetch,
       pageSize: Consts.plantListPageSize,
     );
+    _searchController = TextEditingController();
 
     super.initState();
   }
@@ -39,6 +46,8 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
   @override
   void dispose() {
     _pagewiseController.dispose();
+    _searchController.dispose();
+    _debounce?.cancel();
 
     super.dispose();
   }
@@ -54,6 +63,15 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            Padding(
+              padding: Paddings.horizontal24,
+              child: SearchTextfield(
+                controller: _searchController,
+                hint: S.current.search.capitalize,
+                onChanged: (_) => onSearchChanged(),
+              ),
+            ),
+            const SizedBox(height: 22.0),
             Expanded(
               child: PagewiseListView<Plant>(
                 itemBuilder: (BuildContext context, Plant plant, int i) => Padding(
@@ -62,13 +80,13 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
                     plant: plant,
                     onTap: () => PlantFormScreen(
                       plant: plant,
-                      onSave: () => onSuccessSave(S.current.successPlantEdit),
+                      onSave: (name) => onSuccessSave(S.current.successPlantEdit(name)),
                     ).addScreen(context),
                   ),
                 ),
                 showRetry: false,
                 errorBuilder: (_, __) => CustomErrorWidget(onRefresh: _pagewiseController.retry),
-                noItemsFoundBuilder: (_) => const CustomEmptyWidget(),
+                noItemsFoundBuilder: (_) => CustomEmptyWidget(text: S.current.emptySearchPlants),
                 loadingBuilder: (_) => const CustomLoadingWidget(),
                 pageLoadController: _pagewiseController,
               ),
@@ -79,7 +97,7 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
               child: FilledButton(
                 text: S.current.addPlantToGarden.capitalize,
                 onTap: () => PlantFormScreen(
-                  onSave: () => onSuccessSave(S.current.successPlantAdd),
+                  onSave: (name) => onSuccessSave(S.current.successPlantAdd(name)),
                 ).addScreen(context),
               ),
             ),
@@ -91,7 +109,12 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
   }
 
   Future<List<Plant>> Function(int?) get _fetch => (int? page) async {
-        final result = await sl<GetPlantsPageUsecase>()(page ?? 10000);
+        final param = SearchParam(
+          page: page ?? 99999,
+          pattern: '%${_searchController.text}%',
+        );
+
+        final result = await sl<GetPlantsPageUsecase>()(param);
 
         // throwing exceptions triggers onError in PaginationView
         return result.fold(
@@ -104,5 +127,16 @@ class _PlantsListScreenState extends State<PlantsListScreen> {
     Navigator.of(context).maybePop();
     Notifications.neutral(description: text);
     _pagewiseController.reset();
+  }
+
+  // added debouncing
+  void onSearchChanged() {
+    if (_debounce?.isActive ?? false) {
+      _debounce?.cancel();
+    }
+    _debounce = Timer(
+      const Duration(milliseconds: 500),
+      _pagewiseController.reset,
+    );
   }
 }

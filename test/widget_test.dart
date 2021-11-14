@@ -34,7 +34,7 @@ void main() {
       );
       final entity = PlantEntity.fromPlant(plant);
       await datasource.insertPlant(entity);
-      final actual = await datasource.getPlantsPage(0, Consts.plantListPageSize);
+      final actual = await datasource.searchPlantsPage(0, Consts.plantListPageSize, '');
 
       expect(actual, hasLength(1));
     });

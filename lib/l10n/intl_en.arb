@@ -6,16 +6,18 @@
   "plantedOn": "Planted on",
   "plantType": "Plant type",
   "garden": "garden",
-  "emptyPlants": "You have not add any plant yet",
+  "emptyPlants": "You have not added any plant yet",
+  "emptySearchPlants": "No plants found",
   "thisFieldIsNecessary": "This field is necessary",
   "minLength": "{field} should have at least {num} characters",
   "maxLength": "{field} should have at most {num} characters",
   "name": "name",
-  "editPlant": "edit plant",
+  "updatePlant": "update plant",
   "addPlant": "add plant",
   "plantingDate": "planting date",
   "save": "save",
-  "successPlantAdd": "Successfully added plant",
-  "successPlantEdit": "Successfully edited plant",
-  "addPlantToGarden": "add plant to garden"
+  "successPlantAdd": "Successfully added {name}",
+  "successPlantEdit": "Successfully edited {name}",
+  "addPlantToGarden": "add plant to garden",
+  "search": "search"
 }

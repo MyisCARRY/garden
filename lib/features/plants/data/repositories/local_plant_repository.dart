@@ -5,6 +5,7 @@ import 'package:garden/core/helper/type_aliases.dart';
 import 'package:garden/features/plants/data/datasources/local_plant_datasource.dart';
 import 'package:garden/features/plants/data/models/plant_entity.dart';
 import 'package:garden/features/plants/data/models/plant_type_entity.dart';
+import 'package:garden/features/plants/domain/entities/search_param.dart';
 import 'package:garden/features/plants/domain/repositories/local_plant_repository.dart';
 
 class LocalPlantRepositoryImpl extends LocalPlantRepository {
@@ -15,11 +16,11 @@ class LocalPlantRepositoryImpl extends LocalPlantRepository {
   final LocalPlantDatasource datasource;
 
   @override
-  FutureFailable<List<PlantEntity>> getPlantsPage(int page) async {
+  FutureFailable<List<PlantEntity>> getPlantsPage(SearchParam param) async {
     // if we uncomment Future.delayed we will see that pagination works fine
     // await Future.delayed(const Duration(seconds: 2));
     return RepositoryRequestHandler<List<PlantEntity>>()(
-      request: () => datasource.getPlantsPage(page, Consts.plantListPageSize),
+      request: () => datasource.searchPlantsPage(param.page, Consts.plantListPageSize, param.pattern),
       defaultFailure: GetPlantsFailure(),
     );
   }

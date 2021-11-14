@@ -10,6 +10,7 @@ import 'package:garden/core/presentation/widgets/appbars/title_app_bar.dart';
 import 'package:garden/core/presentation/widgets/buttons/filled_button.dart';
 import 'package:garden/core/presentation/widgets/notifications.dart';
 import 'package:garden/core/presentation/widgets/textfields/basic_outlined_textfield.dart';
+import 'package:garden/core/style/colors.dart';
 import 'package:garden/core/style/paddings.dart';
 import 'package:garden/core/usecase/usecase.dart';
 import 'package:garden/features/plants/domain/entities/plant.dart';
@@ -33,7 +34,7 @@ class PlantFormScreen extends StatefulWidget with NavigatedScreen {
   }) : super(key: key);
 
   final Plant? plant;
-  final VoidCallback onSave;
+  final void Function(String) onSave;
 
   bool get isEdit => plant?.id != null;
 
@@ -82,19 +83,19 @@ class _PlantFormScreenState extends State<PlantFormScreen> {
       listeners: [
         AnyAnimatedButtonBlocListener<Plant, NoParams, Failure>(
           bloc: _addPlantBloc,
-          onSuccessEnd: (_) => widget.onSave(),
+          onSuccessEnd: (_) => widget.onSave(_nameController.text),
           onErrorStart: (failure) => Notifications.error(failure: failure),
         ),
         AnyAnimatedButtonBlocListener<Plant, NoParams, Failure>(
           bloc: _editPlantBloc,
-          onSuccessEnd: (_) => widget.onSave(),
+          onSuccessEnd: (_) => widget.onSave(_nameController.text),
           onErrorStart: (failure) => Notifications.error(failure: failure),
         ),
       ],
       child: Scaffold(
         appBar: TitleAppBar(
           context,
-          title: widget.isEdit ? S.current.editPlant.capitalize : S.current.addPlant.capitalize,
+          title: widget.isEdit ? S.current.updatePlant.capitalize : S.current.addPlant.capitalize,
         ),
         body: SafeArea(
           child: BlocBuilder(
@@ -121,7 +122,7 @@ class _PlantFormScreenState extends State<PlantFormScreen> {
                         DataButton(
                           description: '${S.current.plantingDate}: '.capitalize,
                           value: DateFormats.fullDate(plant.plantingDate),
-                          onTap: showCalendar,
+                          onTap: () => showCalendar(plant.plantingDate),
                         ),
                         const SizedBox(height: 16.0),
                         PlantTypePicker(
@@ -135,6 +136,7 @@ class _PlantFormScreenState extends State<PlantFormScreen> {
                           enabled: valid,
                           onTap: () => onButtonTap(plant),
                         ),
+                        const SizedBox(height: 16.0),
                       ],
                     ),
                   ),
@@ -147,12 +149,23 @@ class _PlantFormScreenState extends State<PlantFormScreen> {
     );
   }
 
-  void showCalendar() {
+  void showCalendar(DateTime selected) {
     showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: selected,
       firstDate: DateTime(2000),
       lastDate: DateTime.now(),
+      currentDate: selected,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: CustomColors.green,
+            ),
+          ),
+          child: child!,
+        );
+      },
     ).then((value) {
       if (value != null) {
         _plantFormBloc.add(PlantFormEvent.changeDate(value));
